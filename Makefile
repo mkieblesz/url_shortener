@@ -35,9 +35,12 @@ docker-build:
 docker-run:
 	docker run -P -p 8080:80 -p 6379 -t -v $(ROOT_DIR):/opt/app url_shortener
 
+docker-setup-taurus:
+	.venv/bin/pip install bzt
+
 docker-taurus-test:
 	# run performance test agains docker instance
 	curl -H "Content-Type: application/json" -X POST -d '{"url":"http://www.google.co.uk"}' http://localhost:8080/shorten_url
 	.venv/bin/bzt tests/performance/test.yml
 
-docker-all: docker-setup docker-build docker-run docker-taurus-test
+docker-all: docker-setup docker-build docker-run docker-setup-taurus docker-taurus-test
