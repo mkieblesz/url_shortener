@@ -10,7 +10,7 @@ Make sure you have `virtualenv` installed. Run `make setup-dev` to setup develop
 
 To run performance tests agains docker container run `make docker-all`. This will setup docker on your machine, build container, run it and finally run performance tests using Taurus.
 
-This application was developed on Ubuntu 14.04, so you might have problems when running it on different OS.
+This application was developed on Ubuntu 16.04, so you might have problems when running it on different OS.
 
 ### Development
 
