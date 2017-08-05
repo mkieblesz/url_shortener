@@ -4,6 +4,5 @@
 .venv
 .cache
 
-url_shortener/config.py
 store.json
 test_store.json

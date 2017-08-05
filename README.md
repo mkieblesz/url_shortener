@@ -25,6 +25,6 @@ can find this configuration in `server/supervisor.conf`. To make local tests use
 ### TODO
 
 - for development run redis in different container and use docker compose for linking
-- write performance test for 1000rps on local machine
+- write performance test for 1000rps on lookup_url endpoint
 - use docker taurus image to run performance tests
 - config.cfg should be set in dockerfile
