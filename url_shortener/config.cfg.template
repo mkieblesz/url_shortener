@@ -1,0 +1,2 @@
+SERVICE_URL='http://www.example-service.com'
+REDIS_URL = 'redis://redis-cluster.example-service.com:6379/0'
