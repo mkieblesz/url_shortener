@@ -19,7 +19,7 @@ should provide config file which should be created using provisioning tools in `
 
 In order to run test suit on a CI server run `make ci_test`.
 
-For higher performance please find best pair of threads and workers on particular machine application is run on. You
+To achieve higher performance please find best pair of threads and workers for machine application is deployed on. You
 can find this configuration in `server/supervisor.conf`. To make local tests use running docker image with `make docker-taurus-test`.
 
 ### TODO
