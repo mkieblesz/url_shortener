@@ -4,6 +4,7 @@ import os
 from flask_redis import FlaskRedis
 
 from url_shortener.store import FileStore, RedisStore
+from fixtures import app
 
 
 def test_filestore():

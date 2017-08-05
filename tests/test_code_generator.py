@@ -1,6 +1,5 @@
 from url_shortener.generator import code_generator
-
-from conftest import app
+from fixtures import app
 
 TEST_URL = 'http://www.google.co.uk'
 
@@ -23,4 +22,5 @@ def test_code_generator_collisions(app):
     # set different url under same code
     app.store.set(code, 'http://www.example.com')
     code = code_generator(TEST_URL)
+    # there was url under same code hence one character was added
     assert len(code) == 4

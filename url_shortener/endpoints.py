@@ -3,14 +3,15 @@ import validators
 
 from flask import current_app, request, abort, jsonify, redirect
 
-from generator import code_generator
+from url_shortener.exceptions import UrlValidationException, BadRequestFormatException, NotFoundException
+from url_shortener.generator import code_generator
 
 
 def lookup_url(code):
     url = current_app.store.get(code)
 
     if not url:
-        abort(404)
+        raise NotFoundException(404)
 
     if 'forward' in request.args:
         return requests.get(url).text
@@ -20,15 +21,15 @@ def lookup_url(code):
 
 def shorten_url():
     if not request.is_json:
-        abort(400)
+        raise BadRequestFormatException()
 
     data = request.get_json()
     if 'url' not in data:
-        abort(400)
+        raise UrlValidationException(msg='Url was not provided')
 
     url = data['url'].strip()
     if not validators.url(url):
-        abort(400)
+        raise UrlValidationException()
 
     code = code_generator(url)
 

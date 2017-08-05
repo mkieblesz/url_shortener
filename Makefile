@@ -8,7 +8,7 @@ setup-test: setup
 setup-dev: setup-test
 
 runserver:
-	.venv/bin/python url_shortener/application.py
+	PYTHONPATH=. .venv/bin/python url_shortener/application.py
 
 test:
 	PYTHONPATH=. .venv/bin/python -m pytest --cov url_shortener

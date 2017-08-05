@@ -1,7 +1,7 @@
 import json
 import requests_mock
 
-from conftest import app
+from fixtures import app
 
 TEST_URL = 'http://www.google.co.uk'
 
@@ -10,7 +10,7 @@ def test_shorten_url(app):
     client = app.test_client()
 
     body = json.dumps({'url': TEST_URL})
-    res = client.post('/shorten_url', data=body, content_type='application/json')
+    res = client.put('/shorten_url', data=body, content_type='application/json')
 
     assert res.status_code == 201
     assert json.loads(res.data)['shortened_url'].startswith(app.config['SERVICE_URL'])
@@ -21,18 +21,21 @@ def test_shorten_url_validator(app):
 
     # bad url format
     body = json.dumps({'url': 'bad url'})
-    res = client.post('/shorten_url', data=body, content_type='application/json')
+    res = client.put('/shorten_url', data=body, content_type='application/json')
     assert res.status_code == 400
+    assert json.loads(res.data) == {'error': {'message': 'Provided url is not valid'}}
 
     # no url in body
     body = json.dumps({'badparam': TEST_URL})
-    res = client.post('/shorten_url', data=body, content_type='application/json')
+    res = client.put('/shorten_url', data=body, content_type='application/json')
     assert res.status_code == 400
+    assert json.loads(res.data) == {'error': {'message': 'Url was not provided'}}
 
     # no a json request
     body = json.dumps({'url': TEST_URL})
-    res = client.post('/shorten_url', data=body)
-    assert res.status_code == 400
+    res = client.put('/shorten_url', data=body)
+    assert res.status_code == 415
+    assert json.loads(res.data) == {'error': {'message': 'Unsupported request format'}}
 
 
 def test_lookup_url_redirect(app):
